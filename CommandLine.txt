@@ -1,0 +1,9 @@
+INCLUDING RUNTIME
+-----------------
+kotlinc hello.kt -include-runtime -d hello.jar
+java -jar hello.jar
+
+NOT INCLUDING RUNTIME
+---------------------
+kotlinc hello.kt -d hello.jar
+kotlin -classpath hello.jar HelloKt

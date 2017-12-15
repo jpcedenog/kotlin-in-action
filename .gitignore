@@ -1,0 +1,10 @@
+.gradle
+build
+*.jar
+*.class
+kotlin-examples
+.classpath
+.project
+.settings
+.vscode
+bin
