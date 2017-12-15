@@ -8,17 +8,18 @@ import chapters.chapter1.*
 import chapters.chapter2.*
 import utils.Color
 import utils.Color.*
-import chapters.chapter3.Button
 import chapters.chapter3.*
+import chapters.chapter3.Button as Button3
 import chapters.chapter4.*
+import chapters.chapter4.Button
 
 fun main(args: Array<String>){
     println()
     println()
 
     //chapter2(args)
-    chapter3(args)
-    //chapter4()
+    //chapter3(args)
+    chapter4()
 
     println()
     println()
@@ -89,7 +90,7 @@ fun chapter3(args: Array<String>){
     println(listOf(1, 3, 4).joinToString(separator="; ", prefix="{", postfix="}"))
     println("Juan Pablo".last())
     println("Juan Pablo".last)
-    val view: View = Button()
+    val view: View = Button3()
     view.click()
     view.showOff() /* Extension functions cannot be overriden */
 
@@ -120,9 +121,9 @@ fun chapter3(args: Array<String>){
     val kotlinLogo = """| //
     .|//
     .|/ \"""
-    */
 
     println(kotlinLogo.trimMargin("."))
+    */
 
     try {
         saveUser(User(1, "", ""))
@@ -135,7 +136,7 @@ fun chapter3(args: Array<String>){
 /*************************** CHAPTER 4 ***************************************/
 /*****************************************************************************/
 fun chapter4(){
-    val button = chapters.chapter4.Button()
+    val button = Button()
     button.click()
     button.setFocus(true)
     button.showOff()

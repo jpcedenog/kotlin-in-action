@@ -19,12 +19,19 @@ class Button : Clickable, Focusable {
     }
 }
 
-open class RichButton : Clickable {
-    fun disable() {}
-    open fun animate() {}
-    final override fun click() {}
+open class RichButton : Clickable { /* Class can be inherited */
+    fun disable() {}                /* Method cannot be overriden */
+    open fun animate() {}           /* Method can be overriden */
+    final override fun click() {}   /* Method cannot be overriden because of the 'final' keyword */
 }
 
-class foo: RichButton() {
+abstract class Animated {
+    abstract fun animate()          /* Must be overriden */
+    open fun stopAnimating(){ }     /* Can be optionally overriden */
+    fun animateTwice(){ }           /* Cannot be overriden */
+}
 
+class Animatedly: Animated(){
+    override fun animate(){ }
+    override fun stopAnimating(){ }
 }
