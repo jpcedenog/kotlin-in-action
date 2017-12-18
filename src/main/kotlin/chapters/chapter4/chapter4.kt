@@ -64,3 +64,14 @@ fun eval(e: Expr): Int = when(e) { /* the "when" expression covers all possible 
     is Expr.Num -> e.value
     is Expr.Sum -> eval(e.right) + eval(e.left)
 }
+
+/* If all constructor parameters have default values, the compiler generates 
+an additional constructor without parameters that uses all the default values */
+class ClassWithDefaultValues(val first: String = "JP", val last: String = "Cedeno")
+
+/* A default constructor without parameters will be generated automatically */
+open class foo
+
+/* This class cannot be instantiated by code outside the class */
+class Secretive private constructor()
+

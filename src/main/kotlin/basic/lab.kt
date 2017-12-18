@@ -142,5 +142,9 @@ fun chapter4(){
     button.setFocus(true)
     button.showOff()
     println(eval(Sum(Sum(Num(1), Num(2)), Num(4))))
+
+    /* This is default constructor created by the compiler */
+    val classWithDefaultValues = ClassWithDefaultValues() 
+    println("${classWithDefaultValues.first} ${classWithDefaultValues.last}")
 }
 
