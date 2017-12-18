@@ -42,6 +42,7 @@ fun chapter2(args: Array<String>){
     }catch(e: Exception){
         println("Exception caught! ${e.message}")
     }
+
     println(eval(Sum(Sum(Num(1), Num(2)), Num(4))))
 
     println()
@@ -140,5 +141,6 @@ fun chapter4(){
     button.click()
     button.setFocus(true)
     button.showOff()
+    println(eval(Sum(Sum(Num(1), Num(2)), Num(4))))
 }
 

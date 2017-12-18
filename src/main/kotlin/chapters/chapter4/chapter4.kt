@@ -35,3 +35,32 @@ class Animatedly: Animated(){
     override fun animate(){ }
     override fun stopAnimating(){ }
 }
+
+internal open class TalkativeButton : Focusable {
+    private fun yell() = println("Hey!")
+    protected fun whisper() = println("Let's talk!")
+}
+
+/* **** This class breaks all rules
+fun TalkativeButton.giveSpeech(){
+    yell()
+    whisper()
+}
+*/
+
+class Outer {
+    inner class Inner { /* Inner classes have to be declared explicitly. Otherwise, they are considered nested by default */
+        fun getOuterReference() : Outer = this@Outer
+    }
+}
+
+sealed class Expr {
+    class Num(val value: Int): Expr()
+    class Sum(val left: Expr, val right: Expr): Expr()
+}
+
+
+fun eval(e: Expr): Int = when(e) { /* the "when" expression covers all possible cases, no "else" branch is needed */
+    is Expr.Num -> e.value
+    is Expr.Sum -> eval(e.right) + eval(e.left)
+}
