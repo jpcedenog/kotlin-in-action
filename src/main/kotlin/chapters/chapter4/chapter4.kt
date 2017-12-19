@@ -75,3 +75,25 @@ open class foo
 /* This class cannot be instantiated by code outside the class */
 class Secretive private constructor()
 
+open class FooView {
+    constructor(id : Int) {
+        println(id)
+    }
+    constructor(id : Int, label : String){
+        println(id)
+        println(label)
+    }
+}
+
+class MyButton : FooView {
+    val id : Int
+    val label : String
+
+    constructor(id : Int) : this(id, "DEFAULT")
+
+    constructor(id : Int, label : String) : super(id, label) {
+        this.id = id
+        this.label = label
+    }
+}
+
