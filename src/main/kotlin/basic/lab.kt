@@ -146,5 +146,16 @@ fun chapter4(){
     /* This is default constructor created by the compiler */
     val classWithDefaultValues = ClassWithDefaultValues() 
     println("${classWithDefaultValues.first} ${classWithDefaultValues.last}")
+
+    val userFoo = UserFoo("JP Cedeno")
+    userFoo.address = "1709 Vinings Pkwy"
+    println(userFoo.address)
+    userFoo.address = "1709 Vinings Pkwy"
+    println(userFoo.address)
+
+    val lengthCounter = LengthCounter()
+    lengthCounter.addWord("Mr JP")
+    //lengthCounter.counter++ /* Illegal. Setter is private in LengthCounter */
+    println(lengthCounter.counter)
 }
 

@@ -97,3 +97,41 @@ class MyButton : FooView {
     }
 }
 
+interface MyUser {
+    val nickName: String /* abstract property */
+    val email: String /* abstract property */
+    val anotherNickName : String get() = email.substringBefore('@') /* property with getter. Backing fields are not allowed in interfaces */
+}
+
+class PrivateUser(override val nickName: String, override val email: String): MyUser
+
+class subscribingUser(override val email: String): MyUser {
+    override val nickName: String get() = email.substringBefore('@') /* substringBefore is calculated in every access */
+    override val anotherNickName: String get() = email.substringBefore('@') /* substringBefore is calculated in every access */
+}
+
+class FacebookUser(val accountId: Int, override val email: String): MyUser {
+    override val nickName = getFacebookName(accountId) /* Backing field stores the data computed during class initialization */
+}
+
+private fun getFacebookName(accountId: Int): String {
+    return accountId.toString()
+}
+
+class UserFoo(val name: String){
+    var address: String = "unspecified"
+        set(value: String){
+            println("""Address was changed for $name "$field" -> "$value".""".trimIndent())
+            field = value
+        }
+        get() = """The value is $field"""
+}
+
+class LengthCounter {
+    var counter = 0
+        private set
+
+    fun addWord(word: String){
+        counter += word.length
+    }
+}
