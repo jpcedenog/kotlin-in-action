@@ -157,5 +157,9 @@ fun chapter4(){
     lengthCounter.addWord("Mr JP")
     //lengthCounter.counter++ /* Illegal. Setter is private in LengthCounter */
     println(lengthCounter.counter)
+
+    val bob = Client("Bob", 973293)
+    println(bob)
+    println(bob.copy(postalCode=382555))
 }
 
