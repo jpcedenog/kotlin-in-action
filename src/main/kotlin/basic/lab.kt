@@ -162,9 +162,18 @@ fun chapter4(){
     println(bob)
     println(bob.copy(postalCode=382555))
 
+    /* Examples of how to use a singleton */
     Payroll.allEmployees.add(Person("JP Cedeno", "foo foo", 100000.0))
     Payroll.allEmployees.add(Person("JP Cedeno", "foo foo", 100000.toDouble()))
     println(Payroll.allEmployees[1])
     Payroll.calculateSalary()
-}
 
+    A.SomeCompanionObject.bar()
+    runSomeInterface(A)
+    A.foo()
+    A.SomeCompanionObject.foo()
+
+    User2.foo("Message to companion object")
+    
+    listener.bar()
+}

@@ -192,10 +192,19 @@ object CaseInsensitiveFileComparator : Comparator<File> {
     }
 }
 
+/* Companion objects can be named, implement interfaces */
+interface SomeInterface<T> { fun bar() }
+interface AnotherInterface<T> { fun bar2() }
+
 class A {
-    companion object {
-        fun bar() = println("Companion object called")
+    companion object SomeCompanionObject: SomeInterface<A> {
+        override fun bar() = println("Companion object called")
+        fun foo() = println("Foo inside companion object")
     }
+}
+
+fun <T> runSomeInterface(someInterface: SomeInterface<T>){
+    someInterface.bar()
 }
 
 /* Factory pattern */
@@ -204,4 +213,13 @@ class User2 private constructor(val nickname: String) {
         fun newSubscribingUser(email: String) = User2(email.substringBefore('@'))
         fun newFacebookUser(accountId: Int) = User2(getFacebookName(accountId))
     }
+}
+
+/* Companion objects can be extended */
+fun User2.Companion.foo(msg: String) = println(msg)
+
+/* Object expression */
+val listener: SomeInterface<String> = object: SomeInterface<String>, AnotherInterface<String> {
+    override fun bar() = println("Implementing object expression 1")
+    override fun bar2() = println("Implementing object expression 2")
 }
