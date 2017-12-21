@@ -1,5 +1,7 @@
 package chapters.chapter4
 
+import java.io.File
+
 interface Clickable {
     fun click()
     fun showOff() = println("I am clickable!")
@@ -105,7 +107,7 @@ interface MyUser {
 
 class PrivateUser(override val nickName: String, override val email: String): MyUser
 
-class subscribingUser(override val email: String): MyUser {
+class SubscribingUser(override val email: String): MyUser {
     override val nickName: String get() = email.substringBefore('@') /* substringBefore is calculated in every access */
     override val anotherNickName: String get() = email.substringBefore('@') /* substringBefore is calculated in every access */
 }
@@ -163,5 +165,43 @@ class CountingSet<T>(val innerSet: MutableCollection<T> = HashSet<T>()): Mutable
     override fun addAll(elements: Collection<T>): Boolean {
         objectsAdded += elements.size
         return innerSet.addAll(elements)
+    }
+}
+
+/* In this case, there will be a single instance of NameComparator associated to Person */
+data class Person(val name: String, val address: String, val salary: Double) {
+    object NameComparator : Comparator<Person> {
+        override fun compare(p1: Person, p2: Person): Int = p1.name.compareTo(p2.name)
+    }
+}
+
+/* This is a singleton */
+object Payroll {
+    val allEmployees = ArrayList<Person>()
+
+    fun calculateSalary() {
+        for(person in allEmployees){
+        }
+    }
+}
+
+/* Use object when you need to implement an interface but there is no need to store state */
+object CaseInsensitiveFileComparator : Comparator<File> {
+    override fun compare(file1: File, file2: File): Int {
+        return file1.path.compareTo(file2.path, ignoreCase = true)
+    }
+}
+
+class A {
+    companion object {
+        fun bar() = println("Companion object called")
+    }
+}
+
+/* Factory pattern */
+class User2 private constructor(val nickname: String) {
+    companion object {
+        fun newSubscribingUser(email: String) = User2(email.substringBefore('@'))
+        fun newFacebookUser(accountId: Int) = User2(getFacebookName(accountId))
     }
 }

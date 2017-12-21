@@ -161,5 +161,10 @@ fun chapter4(){
     val bob = Client("Bob", 973293)
     println(bob)
     println(bob.copy(postalCode=382555))
+
+    Payroll.allEmployees.add(Person("JP Cedeno", "foo foo", 100000.0))
+    Payroll.allEmployees.add(Person("JP Cedeno", "foo foo", 100000.toDouble()))
+    println(Payroll.allEmployees[1])
+    Payroll.calculateSalary()
 }
 
