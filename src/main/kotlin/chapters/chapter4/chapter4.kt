@@ -2,6 +2,50 @@ package chapters.chapter4
 
 import java.io.File
 
+fun main(args: Array<String>){
+    utils.printTitle(4)
+
+    val button = Button()
+    button.click()
+    button.setFocus(true)
+    button.showOff()
+    println(eval(Expr.Sum(Expr.Sum(Expr.Num(1), Expr.Num(2)), Expr.Num(4))))
+
+    /* This is default constructor created by the compiler */
+    val classWithDefaultValues = ClassWithDefaultValues() 
+    println("${classWithDefaultValues.first} ${classWithDefaultValues.last}")
+
+    val userFoo = UserFoo("JP Cedeno")
+    userFoo.address = "1709 Vinings Pkwy"
+    println(userFoo.address)
+    userFoo.address = "1709 Vinings Pkwy"
+    println(userFoo.address)
+
+    val lengthCounter = LengthCounter()
+    lengthCounter.addWord("Mr JP")
+    //lengthCounter.counter++ /* Illegal. Setter is private in LengthCounter */
+    println(lengthCounter.counter)
+
+    val bob = Client("Bob", 973293)
+    println(bob)
+    println(bob.copy(postalCode=382555))
+
+    /* Examples of how to use a singleton */
+    Payroll.allEmployees.add(Person("JP Cedeno", "foo foo", 100000.0))
+    Payroll.allEmployees.add(Person("JP Cedeno", "foo foo", 100000.toDouble()))
+    println(Payroll.allEmployees[1])
+    Payroll.calculateSalary()
+
+    A.SomeCompanionObject.bar()
+    runSomeInterface(A)
+    A.foo()
+    A.SomeCompanionObject.foo()
+
+    User2.foo("Message to companion object")
+    
+    listener.bar()
+}
+
 interface Clickable {
     fun click()
     fun showOff() = println("I am clickable!")

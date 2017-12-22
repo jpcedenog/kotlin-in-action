@@ -7,3 +7,10 @@ enum class Color( val r: Int, val g: Int, val b: Int) {
 
     fun rgb() = (r * 256 + g) * 256 + b
 }
+
+fun printTitle(number: Int) {
+    println("*****************")
+    println("*** CHAPTER $number ***")
+    println("*****************")
+    println()
+}

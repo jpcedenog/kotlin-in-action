@@ -2,8 +2,62 @@ package chapters.chapter2
 
 import java.util.TreeMap
 import java.io.BufferedReader
+import java.io.StringReader
 import utils.Color
 import utils.Color.*
+
+fun main(args: Array<String>){
+    utils.printTitle(2)
+
+    println("The name is ${if(args.size > 0) args[0] else "otherName"}!")
+    val rectangle = Rectangle(2, 3)
+    println("Is a square? ${rectangle.isSquare}")
+    println(getMnemonic(BLUE))
+    println(getWarmth(ORANGE))
+    println(mix(BLUE, YELLOW))
+    println(mixOptimized(BLUE, YELLOW))
+    try {
+        println(mix(Color.RED, Color.VIOLET)) //Throws an exception! Catch it!
+    }catch(e: Exception){
+        println("Exception caught! ${e.message}")
+    }
+
+    println(eval(Sum(Sum(Num(1), Num(2)), Num(4))))
+
+    println()
+    val oneToForty = 1..40
+    for(i in oneToForty) {
+        print(fizzBuzz(i))
+    }
+    println()
+    for(i in 1..40) {
+        print(fizzBuzz(i))
+    }
+
+    println("\nCount backward")
+    for(i in 100 downTo 1 step 2) {
+        print(fizzBuzz(i))
+    }
+
+    println("\nCount forward")
+    for(i in 1 until 100 + 1 step 2) {
+        print(fizzBuzz(i))
+    }
+    
+    println()
+    iterateOverMap()
+
+    println(isLetter('Q'))
+    println(isNotDigit('4'))
+    println(recognize('T'))
+    println(recognize('5'))
+    println(recognize('#'))
+    readNumberExpr(BufferedReader(StringReader("7")))
+    readNumberExpr(BufferedReader(StringReader("foo")))
+
+    println("Kotlin" in setOf("Java", "Scala"))
+    println("Kotlin" in "Java".."Scala") //The same as "Java" <= "Kotlin" && "Kotlin" <= "Scala" 
+}
 
 class Rectangle (val height: Int, val width: Int) {
     /* Custom accessor */

@@ -1,5 +1,59 @@
 package chapters.chapter3
 
+import utils.strings.joinToString
+import utils.strings.lastChar as last
+
+fun main(args: Array<String>){
+    utils.printTitle(3)
+
+    printTypes()
+    println(listOf(1, 3, 4).joinToString(separator="; ", prefix="{", postfix="}"))
+    println("Juan Pablo".last())
+    println("Juan Pablo".last)
+    val view: View = Button()
+    view.click()
+    view.showOff() /* Extension functions cannot be overriden */
+
+    val theList = arrayOf(1, 2, 3, 4)
+    println(myListOf(*theList))
+    println(myListOf(1, 2, 3, 4))
+
+    //fun listOf<T>(vararg values: T): List<T> { ... }
+    println(listOf("args: ", *args)) //Spread operator unpacks the array (args) contents
+
+    /* infix fun Any.to(other: Any) = Pair(this, other) 
+       Check mapping of 1 to 5 */
+    val map = mapOf(1 to "One", 5.to("Five"), 66 to "Sixty Six")
+    for((index, element) in listOf(map).withIndex()) 
+        println("$index: $element")
+
+    for((index, element) in listOf(1 to "One", 5 to "Five", 66 to "Sixty Six").withIndex()) 
+        println("$index: $element")
+
+    val (number, name) = 1 to "One" //This is a destructuring declaration
+    println("number: $number, name: $name")
+
+    println("12.345-6.A".split("\\.|-".toRegex()))
+    println("12.345-6.A".split(".", "-"))
+
+    parsePath("/Users/yole/kotlin-book/chapter.adoc")
+    parsePathRegEx("/Users/yole/kotlin-book/chapter.adoc")
+
+    /*
+    val kotlinLogo = """| //
+    .|//
+    .|/ \"""
+
+    println(kotlinLogo.trimMargin("."))
+    */
+
+    try {
+        saveUser(User(1, "", ""))
+    }catch(e: Exception){
+        println(e.message)
+    }
+}
+
 fun printTypes() {
     /* New ways to create same old Java collections */
     val set = hashSetOf(1, 66, 5)
@@ -24,7 +78,7 @@ open class View {
 }
 
 class Button: View() {
-    override open fun click() = println("Button clicked!")
+    override fun click() = println("Button clicked!")
 }
 
 /* Extension functions cannot be overriden, they depend on 
