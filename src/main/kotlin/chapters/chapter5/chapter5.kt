@@ -54,11 +54,28 @@ fun main(args: Array<String>){
 
     val numbers = mapOf(0 to "zero", 1 to "one")
     println(numbers.mapValues{ it.value.toUpperCase() })
+
+    val canBeInClub30 = { p: Person -> p.age <= 30 }
+    println("All in club30? ${people.all(canBeInClub30)}")
+    println("Any in club30? ${people.any(canBeInClub30)}")
+    println("Who is in club30? ${people.find(canBeInClub30)}")
+
+    println("Age groups are: ${people.groupBy{ it.age }}")
+
+    val stringGroups = listOf("a", "ab", "b")
+    println(stringGroups.groupBy(String::first))
+
+    println(books.flatMap{ it.authors })
+    println(books.flatMap{ it.authors }.toSet())
 }
 
 data class Person(val name: String, val age: Int)
+val people = listOf(Person("Alice", 29), Person("Bob", 31), Person("Carol", 31))
 
-val people = listOf(Person("Alice", 29), Person("Bob", 31))
+data class Book(val title: String, val authors: List<String>) 
+val books = listOf(Book("Thursday Next", listOf("Jasper Fforde")), 
+                    Book("Mort", listOf("Terry Pratchett")), 
+                    Book("Good Omens", listOf("Terry Pratchett", "Neil Gaiman")))
 
 val sum = { x: Int, y: Int -> 
     println("Computing the sum of $x and $y...")
