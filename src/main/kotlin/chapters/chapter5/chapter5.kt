@@ -3,11 +3,17 @@ package chapters.chapter5
 fun main(args: Array<String>){
     utils.printTitle(5)
 
-    /* A lambda expression can be moved out of the parentheses if it's the last argument in a function call. If it's the only argument the parentheses 
-    can be removed */
+    /* A lambda expression can be moved out of the parentheses if 
+    it's the last argument in a function call. If it's the only 
+    argument the parentheses can be removed */
     println(people.maxBy { p: Person -> p.age }) 
+
     println(people.maxBy { p -> p.age }) 
-    println(people.maxBy { it.age }) /* Automatic parameter 'it' is generated if the context expects a lambda with one parameter and its type can be inferred */
+
+    /* Automatic parameter 'it' is generated if the context 
+    expects a lambda with one parameter and its type can be inferred */
+    println(people.maxBy { it.age }) 
+
     println(people.maxBy(Person::age)) /* Member reference */
 
     println(sum(3, 6))
@@ -32,9 +38,26 @@ fun main(args: Array<String>){
     val alicesAgeFunction = alice::age
     println(personsAgeFunction(alice))
     println(alicesAgeFunction())
+
+    /* The filter function does not change the underlying collection */
+    val list = listOf(1, 2, 3, 4)
+    println(list.filter{ it % 2 == 0 })
+    println(people.filter{ it.age < 30 })
+    
+    /* To change the underlying collection, use the map function */
+    println(list.map{ it * it })
+    println(people.map{ it.name })
+    println(people.map(Person::name))
+
+    val maxAge = people.maxBy(Person::age)
+    println(people.filter{ it.age == maxAge?.age })
+
+    val numbers = mapOf(0 to "zero", 1 to "one")
+    println(numbers.mapValues{ it.value.toUpperCase() })
 }
 
 data class Person(val name: String, val age: Int)
+
 val people = listOf(Person("Alice", 29), Person("Bob", 31))
 
 val sum = { x: Int, y: Int -> 
@@ -76,3 +99,4 @@ val createPerson = ::Person
 fun Person.isAdult() = age >= 21
 val personsIsAdultFunction = Person::isAdult
 val personsAgeFunction = Person::age
+
