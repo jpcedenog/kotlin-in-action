@@ -114,6 +114,10 @@ fun main(args: Array<String>){
     /* Postponed computations related to sequences naturalNumbers and numbersTo100 are 
     executed only when the terminal operation sum is invoked */
     println(numbersTo100.sum()) 
+
+    println(alphabet())
+    println(alphabet2().toString())
+    println(alphabet3())
 }
 
 data class Person(val name: String, val age: Int)
@@ -164,3 +168,28 @@ fun Person.isAdult() = age >= 21
 val personsIsAdultFunction = Person::isAdult
 val personsAgeFunction = Person::age
 
+/* Use of a lambda with receiver 'with' */
+fun alphabet() = with(StringBuilder()) {
+    for(letter in 'A'..'Z'){
+        append(letter)
+    }
+    append("\nNow I know the alphabet")
+    toString()
+}
+
+/* Use of a lambda with receiver 'apply' */
+fun alphabet2() = StringBuilder().apply {
+    for (letter in 'A'..'Z') {
+    append(letter)
+    }
+    append("\nNow I know the alphabet!")
+}
+
+/* The buildString function is an elegant solution for the task of creating a String
+with the help of StringBuilder */
+fun alphabet3() = buildString {
+    for (letter in 'A'..'Z') {
+    append(letter)
+    }
+    append("\nNow I know the alphabet!")
+}
