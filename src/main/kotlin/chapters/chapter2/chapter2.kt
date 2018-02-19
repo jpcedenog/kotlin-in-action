@@ -9,13 +9,18 @@ import utils.Color.*
 fun main(args: Array<String>){
     utils.printTitle(2)
 
+    println(max(1, 3))
+
     println("The name is ${if(args.size > 0) args[0] else "otherName"}!")
+
     val rectangle = Rectangle(2, 3)
     println("Is a square? ${rectangle.isSquare}")
+
     println(getMnemonic(BLUE))
     println(getWarmth(ORANGE))
     println(mix(BLUE, YELLOW))
     println(mixOptimized(BLUE, YELLOW))
+
     try {
         println(mix(Color.RED, Color.VIOLET)) //Throws an exception! Catch it!
     }catch(e: Exception){
@@ -58,6 +63,8 @@ fun main(args: Array<String>){
     println("Kotlin" in setOf("Java", "Scala"))
     println("Kotlin" in "Java".."Scala") //The same as "Java" <= "Kotlin" && "Kotlin" <= "Scala" 
 }
+
+fun max(a: Int, b: Int) = if(a > b) a else b
 
 class Rectangle (val height: Int, val width: Int) {
     /* Custom accessor */
