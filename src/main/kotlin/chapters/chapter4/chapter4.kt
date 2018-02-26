@@ -224,8 +224,8 @@ class Client(val name: String, val postalCode: Int){
 /* The class above is equivalent to */
 data class Client(val name: String, val postalCode: Int)
 
-/* Delegates the Collection implementation to innerList */
-class DelegatingCollection<T>(innerList: Collection<T> = ArrayList<T>()) : Collection<T> by innerList {}
+/* Delegates the Collection implementation to theInnerList */
+class DelegatingCollection<T>(theInnerList: Collection<T> = ArrayList<T>()) : Collection<T> by theInnerList {}
 
 /* Delegates the MutableCollection implementation to innerSet */
 class CountingSet<T>(val innerSet: MutableCollection<T> = HashSet<T>()): MutableCollection<T> by innerSet {
@@ -240,13 +240,6 @@ class CountingSet<T>(val innerSet: MutableCollection<T> = HashSet<T>()): Mutable
     override fun addAll(elements: Collection<T>): Boolean {
         objectsAdded += elements.size
         return innerSet.addAll(elements)
-    }
-}
-
-/* In this case, there will be a single instance of NameComparator associated to Person */
-data class Person(val name: String, val address: String, val salary: Double) {
-    object NameComparator : Comparator<Person> {
-        override fun compare(p1: Person, p2: Person): Int = p1.name.compareTo(p2.name)
     }
 }
 
@@ -267,6 +260,24 @@ object CaseInsensitiveFileComparator : Comparator<File> {
     }
 }
 
+/* In this case, there will be a single instance of NameComparator associated to Person */
+data class Person(val name: String, val address: String, val salary: Double) {
+    object NameComparator : Comparator<Person> {
+        override fun compare(p1: Person, p2: Person): Int = p1.name.compareTo(p2.name)
+    }
+}
+
+/* Factory pattern */
+class User2 private constructor(val nickname: String) {
+    companion object {
+        fun newSubscribingUser(email: String) = User2(email.substringBefore('@'))
+        fun newFacebookUser(accountId: Int) = User2(getFacebookName(accountId))
+    }
+}
+
+/* Companion objects can be extended */
+fun User2.Companion.foo(msg: String) = println(msg)
+
 /* Companion objects can be named, implement interfaces */
 interface SomeInterface<T> { fun bar() }
 interface AnotherInterface<T> { fun bar2() }
@@ -282,18 +293,7 @@ fun <T> runSomeInterface(someInterface: SomeInterface<T>){
     someInterface.bar()
 }
 
-/* Factory pattern */
-class User2 private constructor(val nickname: String) {
-    companion object {
-        fun newSubscribingUser(email: String) = User2(email.substringBefore('@'))
-        fun newFacebookUser(accountId: Int) = User2(getFacebookName(accountId))
-    }
-}
-
-/* Companion objects can be extended */
-fun User2.Companion.foo(msg: String) = println(msg)
-
-/* Object expression */
+/* Object expression. This is equivalent to Java's anonymous classes */
 val listener: SomeInterface<String> = object: SomeInterface<String>, AnotherInterface<String> {
     override fun bar() = println("Implementing object expression 1")
     override fun bar2() = println("Implementing object expression 2")
