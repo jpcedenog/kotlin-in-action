@@ -11,6 +11,9 @@ fun main(args: Array<String>){
     button.showOff()
     println(eval(Expr.Sum(Expr.Sum(Expr.Num(1), Expr.Num(2)), Expr.Num(4))))
 
+    val user = User(nickname="JP", address="1234 SmallTown")
+    println("${user.nickname}")
+
     /* This is default constructor created by the compiler */
     val classWithDefaultValues = ClassWithDefaultValues() 
     println("${classWithDefaultValues.first} ${classWithDefaultValues.last}")
@@ -59,6 +62,10 @@ interface Focusable {
 class Button : Clickable, Focusable {
     override fun click() = println("I was clicked!")
 
+    /* 
+    Button MUST provide an implementation of showOff as both interfaces 
+    provide a default implementation
+    */
     override fun showOff() {
         super<Clickable>.showOff()
         super<Focusable>.showOff()
@@ -69,12 +76,14 @@ open class RichButton : Clickable { /* Class can be inherited */
     fun disable() {}                /* Method cannot be overriden */
     open fun animate() {}           /* Method can be overriden */
     final override fun click() {}   /* Method cannot be overriden because of the 'final' keyword */
+    /* 'final' above is necessary because without it, click() would be open by default because click()
+     is open in Focusable */
 }
 
 abstract class Animated {
-    abstract fun animate()          /* Must be overriden */
-    open fun stopAnimating(){ }     /* Can be optionally overriden */
-    fun animateTwice(){ }           /* Cannot be overriden */
+    abstract fun animate()          /* Abstract, so it must be overriden */
+    open fun stopAnimating(){ }     /* Non-abtract, however, it can be optionally overriden */
+    fun animateTwice(){ }           /* Non-abstract, cannot be overriden */
 }
 
 class Animatedly: Animated(){
@@ -95,21 +104,36 @@ fun TalkativeButton.giveSpeech(){
 */
 
 class Outer {
-    inner class Inner { /* Inner classes have to be declared explicitly. Otherwise, they are considered nested by default */
+    /* Inner classes have to be declared explicitly. Otherwise, they are considered static nested by default */
+    inner class Inner { 
         fun getOuterReference() : Outer = this@Outer
     }
 }
-
+/*
+Sealed classes restrict the possibility of creating subclasses. All the direct subclasses must be nested 
+in the superclass. Sealed classes cannot have inheritors defined outside the class
+*/
 sealed class Expr {
     class Num(val value: Int): Expr()
     class Sum(val left: Expr, val right: Expr): Expr()
 }
 
-
 fun eval(e: Expr): Int = when(e) { /* the "when" expression covers all possible cases, no "else" branch is needed */
     is Expr.Num -> e.value
     is Expr.Sum -> eval(e.right) + eval(e.left)
 }
+
+/* 
+'val' means that the corresponding property is generated for the constructor parameter. 'address'
+will not be created as a property
+*/
+open class User(val nickname: String, address: String)
+/*
+If your class has a superclass, the primary constructor also needs to initialize the superclass.
+You can do so by providing the superclass constructor parameters after the
+superclass reference in the base class list
+*/
+class TwitterUser(nickname: String, address: String): User(nickname, address)
 
 /* If all constructor parameters have default values, the compiler generates 
 an additional constructor without parameters that uses all the default values */
@@ -135,14 +159,17 @@ class MyButton : FooView {
     val id : Int
     val label : String
 
-    constructor(id : Int) : this(id, "DEFAULT")
+    constructor(id : Int) : this(id, "DEFAULT") /* This constructor calls another constructor in the same class */
 
-    constructor(id : Int, label : String) : super(id, label) {
+    constructor(id : Int, label : String) : super(id, label) { /* The superclass' constructor needs to be invoked */
         this.id = id
         this.label = label
     }
 }
 
+/*
+Classes implementing the User interface need to provide a way to obtain the value of nickname and email
+*/
 interface MyUser {
     val nickName: String /* abstract property */
     val email: String /* abstract property */
@@ -167,15 +194,15 @@ private fun getFacebookName(accountId: Int): String {
 class UserFoo(val name: String){
     var address: String = "unspecified"
         set(value: String){
-            println("""Address was changed for $name "$field" -> "$value".""".trimIndent())
-            field = value
+            println("""Address was changed for $name "$field" -> "$value".""".trimIndent()) /* Reads the backing value */
+            field = value /* Updates the backing value */
         }
         get() = """The value is $field"""
 }
 
 class LengthCounter {
-    var counter = 0
-        private set
+    var counter = 0 
+        private set /* 'counter' cannot be updated outside the class */
 
     fun addWord(word: String){
         counter += word.length
@@ -191,10 +218,14 @@ class Client(val name: String, val postalCode: Int){
     }
     override fun toString() = "Client(name = $name, postalCode = $postalCode)"
     override fun hashCode(): Int = name.hashCode() * 31 + postalCode
+    fun copy(name: String = this.name, postalCode: Int = this.postalCode) = Client(name, postalCode)
 }
 */
 /* The class above is equivalent to */
 data class Client(val name: String, val postalCode: Int)
+
+/* Delegates the Collection implementation to innerList */
+class DelegatingCollection<T>(innerList: Collection<T> = ArrayList<T>()) : Collection<T> by innerList {}
 
 /* Delegates the MutableCollection implementation to innerSet */
 class CountingSet<T>(val innerSet: MutableCollection<T> = HashSet<T>()): MutableCollection<T> by innerSet {

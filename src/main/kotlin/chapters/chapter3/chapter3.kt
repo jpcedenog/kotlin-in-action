@@ -14,12 +14,17 @@ fun main(args: Array<String>){
     view.click()
     view.showOff() /* Extension functions cannot be overriden */
 
-    val theList = arrayOf(1, 2, 3, 4)
-    println(myListOf(*theList))
-    println(myListOf(1, 2, 3, 4))
+    val theList = arrayOf(3, 4, 5, 6)
+    println(myListOf(1, 2, *theList))
+    println(myListOf(1, 2, 3, 4, 5, 6))
 
+    /*
+    Kotlin requires you to explicitly unpack the array, so that every array element 
+    becomes a separate argument to the function being called. Spread operator unpacks 
+    the array (args) contents
+    */
     //fun listOf<T>(vararg values: T): List<T> { ... }
-    println(listOf("args: ", *args)) //Spread operator unpacks the array (args) contents
+    println(listOf("args: ", *args)) 
 
     /* infix fun Any.to(other: Any) = Pair(this, other) 
        Check mapping of 1 to 5 */
@@ -33,6 +38,7 @@ fun main(args: Array<String>){
     val (number, name) = 1 to "One" //This is a destructuring declaration
     println("number: $number, name: $name")
 
+    /* In Kotlin, it is always clear whether split is getting a String or a Regex */
     println("12.345-6.A".split("\\.|-".toRegex()))
     println("12.345-6.A".split(".", "-"))
 
@@ -47,11 +53,8 @@ fun main(args: Array<String>){
     println(kotlinLogo.trimMargin("."))
     */
 
-    try {
-        saveUser(User(1, "", ""))
-    }catch(e: Exception){
-        println(e.message)
-    }
+    saveUser(User(1, "", ""))
+    saveUser(User(1, "JP Cedeno", "1234 Small Town, USA"))
 }
 
 fun printTypes() {
@@ -100,6 +103,7 @@ fun parsePath(path: String){
 }
 
 fun parsePathRegEx(path: String) {
+    /* With triple quoted strings, it is not necessary to escape any characters */
     val regex = """(.+)/(.+)\.(.+)""".toRegex()
     val matchResult = regex.matchEntire(path)
 
@@ -112,9 +116,10 @@ fun parsePathRegEx(path: String) {
 class User(val id: Int, val name: String, val address: String)
 
 fun User.validateBeforeSave(){
-    //validate() is a local function
+    //validate() is a local function which has access to any field in User
     fun validate(value: String, fieldName: String) {
         if (value.isEmpty()) {
+            /* Note that User's id property can be easily accessed */
             throw IllegalArgumentException("Can't save user $id: empty $fieldName")
         }
     }
@@ -125,5 +130,10 @@ fun User.validateBeforeSave(){
 }
 
 fun saveUser(user: User){
-    user.validateBeforeSave()
+    try {
+        user.validateBeforeSave()
+        println("User '${user.name}' saved correctly!")
+    }catch(e: Exception){
+        println(e.message)
+    }
 }
