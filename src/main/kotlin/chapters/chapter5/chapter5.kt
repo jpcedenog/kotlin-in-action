@@ -5,24 +5,7 @@ fun main(args: Array<String>){
 
     lambdaExpressionsAndMemberReferences()
 
-    println(names)
-    println(names2)
-
-    /* The filter function does not change the underlying collection */
-    val list = listOf(1, 2, 3, 4)
-    println(list.filter{ it % 2 == 0 })
-    println(people.filter{ it.age < 30 })
-
-    /* To change the underlying collection, use the map function */
-    println(list.map{ it * it })
-    println(people.map{ it.name })
-    println(people.map(Person::name))
-
-    val maxAge = people.maxBy(Person::age)
-    println(people.filter{ it.age == maxAge?.age })
-
-    val numbers = mapOf(0 to "zero", 1 to "one")
-    println(numbers.mapValues{ it.value.toUpperCase() })
+    functionalAPIsForCollections()
 
     val canBeInClub30 = { p: Person -> p.age <= 30 }
     println("All in club30? ${people.all(canBeInClub30)}")
@@ -96,6 +79,14 @@ data class Person(val name: String, val age: Int)
 val people = listOf(Person("Alice", 29), Person("Bob", 31), Person("Charles", 31), Person("Dan", 21))
 
 fun lambdaExpressionsAndMemberReferences() {
+    /* Standard joinToString takes a function to convert the object to a customized String version */
+    /* In these two cases, there is no lambda context so the 'it' parameter cannot be used */
+    val names = people.joinToString(separator = " ", transform = { p: Person -> p.name })
+    val names2 = people.joinToString(" ") { p: Person -> p.name }
+
+    println(names)
+    println(names2)
+
     /* 
     A lambda expression can be moved out of the parentheses if it's the last argument in a function call. If it's the only 
     argument the parentheses can be removed 
@@ -168,16 +159,37 @@ fun lambdaExpressionsAndMemberReferences() {
 /**********************************************************************************************************************/
 /**********************************************************************************************************************/
 /**********************************************************************************************************************/
+fun functionalAPIsForCollections() {
+    /* The filter function does not change the underlying collection */
+    val list = listOf(1, 2, 3, 4)
+    println(list.filter{ it % 2 == 0 })
+    println(people.filter{ it.age < 30 })
+
+    /* To change the underlying collection, use the map function */
+    println(list.map{ it * it })
+    println(people.map{ it.name })
+    println(people.map(Person::name))
+
+    /* Don't repeat a calculation if you don’t need to! Simple-looking code using lambda expressions 
+    can sometimes obscure the complexity of the underlying operations*/
+    val maxAge = people.maxBy(Person::age)
+    println(people.filter{ it.age == maxAge?.age })
+
+    /* You can also apply the filter and transformation functions to maps */
+    val numbers = mapOf(0 to "zero", 1 to "one")
+    /* mapValues returns a new map with entries having the keys of this map and the values obtained by applying the transform 
+    function to each entry in this Map */
+    println(numbers.mapValues{ it.value.toUpperCase() })
+    println(numbers.map{ it.value.toUpperCase() })
+}
+/**********************************************************************************************************************/
+/**********************************************************************************************************************/
+/**********************************************************************************************************************/
 
 data class Book(val title: String, val authors: List<String>) 
 val books = listOf(Book("Thursday Next", listOf("Jasper Fforde")), 
 Book("Mort", listOf("Terry Pratchett")), 
 Book("Good Omens", listOf("Terry Pratchett", "Neil Gaiman")))
-
-/* Standard joinToString takes a function to convert the object to a customized String version */
-/* In these two cases, there is no lambda context so the 'it' parameter cannot be used */
-val names = people.joinToString(separator = " ", transform = { p: Person -> p.name })
-val names2 = people.joinToString(" ") { p: Person -> p.name }
 
 /* Use of a lambda with receiver 'with' */
 fun alphabet() = with(StringBuilder()) {
