@@ -12,11 +12,8 @@ fun main(args: Array<String>){
     utils.printTitle(5)
 
     lambdaExpressionsAndMemberReferences()
-
     functionalAPIsForCollections()
-
     lazyCollectionOperationsAndSequences()
-
     lambdasWithReceivers()
 }
 
@@ -24,8 +21,10 @@ fun main(args: Array<String>){
 /**********************************************************************************************************************/
 /**********************************************************************************************************************/
 fun lambdaExpressionsAndMemberReferences() {
-    /* Standard joinToString takes a function to convert the object to a customized String version */
-    /* In these two cases, there is no lambda context so the 'it' parameter cannot be used */
+    /* 
+    Standard joinToString takes a function to convert the object to a customized String version
+    In these two cases, there is no lambda context so the 'it' parameter cannot be used 
+    */
     val names = people.joinToString(separator = " ", transform = { p: Person -> p.name })
     val names2 = people.joinToString(" ") { p: Person -> p.name }
 
