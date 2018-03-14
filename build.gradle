@@ -11,7 +11,7 @@ buildscript {
 apply plugin: 'kotlin'
 apply plugin: 'application'
 
-mainClassName = 'main.MainKt'
+mainClassName = 'chapters.chapter2.S21FunctionAndVariablesKt'
 applicationDefaultJvmArgs = ["-Xms512m", "-Xmx1g"]
 defaultTasks 'run'
 
