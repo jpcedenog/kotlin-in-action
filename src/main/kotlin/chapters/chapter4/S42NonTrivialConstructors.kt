@@ -86,7 +86,7 @@ class FacebookUser(val accountId: Int, override val email: String): MyUser {
     override val nickName = getFacebookName(accountId) /* Backing field stores the data computed during class initialization */
 }
 
-private fun getFacebookName(accountId: Int): String {
+public fun getFacebookName(accountId: Int): String {
     return accountId.toString()
 }
 

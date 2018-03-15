@@ -3,8 +3,6 @@ package chapters.chapter4
 import java.io.File
 
 fun main(args: Array<String>){
-    utils.printTitle(4)
-
     val button = Button()
     button.click()
     button.setFocus(true)
