@@ -1,5 +1,8 @@
 package chapters.chapter5
 
+import java.util.Collections
+import java.util.Comparator
+
 fun main(args: Array<String>) {
     data class Person(val name: String, val age: Int)
     val people = listOf(Person("Alice", 29), Person("Bob", 31), Person("Charles", 31), Person("Dan", 21))
@@ -82,4 +85,18 @@ fun main(args: Array<String>) {
     val alicesAgeFunction = alice::age
     println(personsAgeFunction(alice))
     println(alicesAgeFunction())
+
+    /* Lambda experiments (from Java 8) */
+    fun sortList(elements: List<String>){
+        //Collections.sort(elements, (s1, s2) -> Integer.compare(s1.length(), s2.length())) /* Java style */
+        Collections.sort(elements){ s1, s2 -> Integer.compare(s1.length, s2.length) }
+
+        /* The Comparator interface has a very useful static comparing method that accepts a "key extraction" 
+        function and yields a comparator that compares the extracted keys */
+        Collections.sort(elements, Comparator.comparing(String::length))
+    }
+
+    val elements = listOf("Guerrero", "Cedeno", "Pablo", "Juan")
+    sortList(elements)
+    println(elements)
 }
