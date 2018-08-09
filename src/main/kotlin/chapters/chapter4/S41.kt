@@ -26,6 +26,9 @@ class Button : Clickable, Focusable {
     /* 
     Button MUST provide an implementation of showOff as both interfaces 
     provide a default implementation
+
+    "super" qualified by the supertype name in angle brackets specifies the
+    parent whose method you want to call.
     */
     override fun showOff() {
         super<Clickable>.showOff()
@@ -52,15 +55,21 @@ class Animatedly: Animated(){
     override fun stopAnimating(){ }
 }
 
+/* Kotlin offers a new visibility modifier, internal, which means "visible inside a module." 
+A module is a set of Kotlin files compiled together. It may be an IntelliJ IDEA module, an 
+Eclipse project, a Maven or Gradle project, or a set of files compiled with an invocation of 
+the Ant task. */
+
 internal open class TalkativeButton : Focusable {
     private fun yell() = println("Hey!")
     protected fun whisper() = println("Let's talk!")
 }
+ 
 
 /* **** This class breaks all rules
-fun TalkativeButton.giveSpeech(){
-    yell()
-    whisper()
+fun TalkativeButton.giveSpeech(){           //Error: "public" member exposes its "internal" receiver type TalkativeButton
+    yell()                                  //Error: yell() is private in TalkativeButton
+    whisper()                               //Error: whisper() is protected in TalkativeButton
 }
 */
 
@@ -70,10 +79,16 @@ class Outer {
         fun getOuterReference() : Outer = this@Outer
     }
 }
+
 /*
-Sealed classes restrict the possibility of creating subclasses. All the direct subclasses must be nested 
-in the superclass. Sealed classes cannot have inheritors defined outside the class
+You mark a superclass with the sealed modifier, and that restricts the possibility of creating subclasses. All
+the direct subclasses must be nested in the superclass. Sealed classes cannot have inheritors defined outside the class
+
+interface Expr
+class Num(val value: Int) : Expr
+class Sum(val left: Expr, val right: Expr) : Expr
 */
+
 sealed class Expr {
     class Num(val value: Int): Expr()
     class Sum(val left: Expr, val right: Expr): Expr()
