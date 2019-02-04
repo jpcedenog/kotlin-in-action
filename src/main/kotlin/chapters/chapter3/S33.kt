@@ -2,10 +2,13 @@ package chapters.chapter3
 
 import utils.strings.joinToString
 import utils.strings.lastChar as last
+import utils.strings.myRepeat as myRepeat
 
 fun main(args: Array<String>){
     println("Juan Pablo".last())
     println("Juan Pablo".last)
+    println("JP ".myRepeat(5))
+
     val view: View = Button()
     view.click()
     view.showOff() /* Extension functions cannot be overriden */

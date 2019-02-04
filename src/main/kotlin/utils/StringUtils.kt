@@ -21,5 +21,8 @@ fun <T> Collection<T>.joinToString(
 /* This is an extension function */
 fun String.lastChar(): Char = this.get(this.length - 1)
 
+/* This one too */
+val myRepeat: String.(Int) -> String = { times -> this.repeat(times) }
+
 /* This is an extension property */
 val String.lastChar: Char get() = get(length - 1)
