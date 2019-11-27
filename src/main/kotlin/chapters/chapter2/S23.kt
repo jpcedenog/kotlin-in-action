@@ -16,6 +16,7 @@ fun main(args: Array<String>) {
     println(eval(Sum(Sum(Num(1), Num(2)), Num(4))))
 }
 
+/* Return a 'when' expression directly */
 fun getMnemonic(color: Color) = when (color) {
     RED -> "Richard"
     ORANGE -> "Of"
@@ -26,12 +27,14 @@ fun getMnemonic(color: Color) = when (color) {
     VIOLET -> "Vain"
 }
 
+/* Combine options in one when branch */
 fun getWarmth(color: Color) = when(color) {
     RED, ORANGE, YELLOW -> "warm"
     GREEN -> "neutral"
     BLUE, INDIGO, VIOLET -> "cold"
 }
 
+/* Use different objects in when branches */
 fun mix(c1: Color, c2: Color) = when (setOf(c1, c2)) {
     setOf(RED, YELLOW) -> ORANGE
     setOf(YELLOW, BLUE) -> GREEN
@@ -39,6 +42,7 @@ fun mix(c1: Color, c2: Color) = when (setOf(c1, c2)) {
     else -> throw Exception("Dirty color")
 }
 
+/* Optimized version that does not create unnecessary objects */
 fun mixOptimized(c1: Color, c2: Color) = when {
     (c1 == RED && c2 == YELLOW) || (c1 == YELLOW && c2 == RED) -> ORANGE
     (c1 == YELLOW && c2 == BLUE) || (c1 == BLUE && c2 == YELLOW) -> GREEN
@@ -51,6 +55,7 @@ interface Expr
 class Num(val value: Int): Expr
 class Sum(val left: Expr, val right: Expr): Expr
 
+/* Smart casts. e is converted to either Num or Sum automatically */
 fun eval(e: Expr): Int = when(e) {
     is Num -> {
         println("num: ${e.value}")
