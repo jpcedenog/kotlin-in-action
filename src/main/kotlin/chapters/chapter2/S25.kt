@@ -11,6 +11,7 @@ fun main(args: Array<String>){
     readNumberExpr(BufferedReader(StringReader("foo")))
 }
 
+/* IOException does not need to be explicitly thrown */
 fun readNumber(reader: BufferedReader): Int? {
     try {
         val line = reader.readLine()

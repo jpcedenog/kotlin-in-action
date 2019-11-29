@@ -23,5 +23,5 @@ fun printTypes() {
     println(set.max())
     println(list.max())
 
-    /* Check how to add new methods to the String class in string-utils.kt */
+    /* Check how to add new methods to the String class in StringUtils.kt */
 }

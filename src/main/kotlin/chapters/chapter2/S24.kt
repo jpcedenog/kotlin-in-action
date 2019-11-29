@@ -3,14 +3,14 @@ package chapters.chapter2
 import java.util.TreeMap
 
 fun main(args: Array<String>) {
+    //Iterate over a range
     val oneToForty = 1..40
+    println("${oneToForty::class.simpleName}")
     for(i in oneToForty) {
         print(fizzBuzz(i))
     }
+
     println()
-    for(i in 1..40) {
-        print(fizzBuzz(i))
-    }
 
     println("\nCount backward")
     for(i in 100 downTo 1 step 2) {
@@ -23,6 +23,7 @@ fun main(args: Array<String>) {
     }
     
     println()
+
     iterateOverMap()
 
     println(isLetter('Q'))
