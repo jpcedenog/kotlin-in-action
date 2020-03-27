@@ -8,3 +8,4 @@ kotlin-examples
 .settings
 .vscode
 bin
+.DS_Store
