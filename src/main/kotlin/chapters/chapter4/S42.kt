@@ -1,13 +1,11 @@
 package chapters.chapter4
 
-import java.io.File
-
-fun main(args: Array<String>){
-    val user = User(nickname="JP", address="1234 SmallTown")
+fun main(args: Array<String>) {
+    val user = User(nickname = "JP", address = "1234 SmallTown")
     println("${user.nickname}")
 
     /* This is default constructor created by the compiler */
-    val classWithDefaultValues = ClassWithDefaultValues() 
+    val classWithDefaultValues = ClassWithDefaultValues()
     println("${classWithDefaultValues.first} ${classWithDefaultValues.last}")
 
     val userFoo = UserFoo("JP Cedeno")
@@ -27,12 +25,13 @@ fun main(args: Array<String>){
 will not be created as a property
 */
 open class User(val nickname: String, address: String)
+
 /*
 If your class has a superclass, the primary constructor also needs to initialize the superclass.
 You can do so by providing the superclass constructor parameters after the
 superclass reference in the base class list
 */
-class TwitterUser(nickname: String, address: String): User(nickname, address)
+class TwitterUser(nickname: String, address: String) : User(nickname, address)
 
 /* If all constructor parameters have default values, the compiler generates 
 an additional constructor without parameters that uses all the default values */
@@ -45,22 +44,23 @@ open class foo
 class Secretive private constructor()
 
 open class FooView {
-    constructor(id : Int) {
+    constructor(id: Int) {
         println(id)
     }
-    constructor(id : Int, label : String){
+
+    constructor(id: Int, label: String) {
         println(id)
         println(label)
     }
 }
 
 class MyButton : FooView {
-    val id : Int
-    val label : String
+    val id: Int
+    val label: String
 
-    constructor(id : Int) : this(id, "DEFAULT") /* This constructor calls another constructor in the same class */
+    constructor(id: Int) : this(id, "DEFAULT") /* This constructor calls another constructor in the same class */
 
-    constructor(id : Int, label : String) : super(id, label) { /* The superclass' constructor needs to be invoked */
+    constructor(id: Int, label: String) : super(id, label) { /* The superclass' constructor needs to be invoked */
         this.id = id
         this.label = label
     }
@@ -72,27 +72,27 @@ Classes implementing the User interface need to provide a way to obtain the valu
 interface MyUser {
     val nickName: String /* abstract property */
     val email: String /* abstract property */
-    val anotherNickName : String get() = email.substringBefore('@') /* property with getter. Backing fields are not allowed in interfaces */
+    val anotherNickName: String get() = email.substringBefore('@') /* property with getter. Backing fields are not allowed in interfaces */
 }
 
-class PrivateUser(override val nickName: String, override val email: String): MyUser
+class PrivateUser(override val nickName: String, override val email: String) : MyUser
 
-class SubscribingUser(override val email: String): MyUser {
+class SubscribingUser(override val email: String) : MyUser {
     override val nickName: String get() = email.substringBefore('@') /* substringBefore is calculated in every access */
     override val anotherNickName: String get() = email.substringBefore('@') /* substringBefore is calculated in every access */
 }
 
-class FacebookUser(val accountId: Int, override val email: String): MyUser {
+class FacebookUser(val accountId: Int, override val email: String) : MyUser {
     override val nickName = getFacebookName(accountId) /* Backing field stores the data computed during class initialization */
 }
 
-public fun getFacebookName(accountId: Int): String {
+fun getFacebookName(accountId: Int): String {
     return accountId.toString()
 }
 
-class UserFoo(val name: String){
+class UserFoo(val name: String) {
     var address: String = "unspecified"
-        set(value: String){
+        set(value: String) {
             println("""Address was changed for $name "$field" -> "$value".""".trimIndent()) /* Reads the backing value */
             field = value /* Updates the backing value */
         }
@@ -100,10 +100,10 @@ class UserFoo(val name: String){
 }
 
 class LengthCounter {
-    var counter = 0 
+    var counter = 0
         private set /* 'counter' cannot be updated outside the class */
 
-    fun addWord(word: String){
+    fun addWord(word: String) {
         counter += word.length
     }
 }

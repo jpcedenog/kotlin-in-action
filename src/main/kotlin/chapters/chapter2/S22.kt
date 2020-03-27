@@ -9,12 +9,12 @@ fun main(args: Array<String>) {
 }
 
 class Person(
-    val name: String, /* generates trivial getter */
-    var isMarried: Boolean /* generates getter and setter */
+        val name: String, /* generates trivial getter */
+        var isMarried: Boolean /* generates getter and setter */
 )
 
 /* This is a data class (used to create value objects) */
-class Rectangle (val height: Int, val width: Int) {
+class Rectangle(val height: Int, val width: Int) {
     /* Custom accessor, no need to store information in separate field */
     val isSquare: Boolean get() = height == width
 }

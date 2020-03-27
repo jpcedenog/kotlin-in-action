@@ -1,11 +1,9 @@
 package chapters.chapter4
 
-import java.io.File
-
-fun main(args: Array<String>){
+fun main(args: Array<String>) {
     val bob = Client("Bob", 973293)
     println(bob)
-    println(bob.copy(postalCode=382555))
+    println(bob.copy(postalCode = 382555))
 }
 
 /*
@@ -24,10 +22,10 @@ class Client(val name: String, val postalCode: Int){
 data class Client(val name: String, val postalCode: Int)
 
 /* Delegates the Collection implementation to theInnerList */
-class DelegatingCollection<T>(theInnerList: Collection<T> = ArrayList<T>()) : Collection<T> by theInnerList {}
+class DelegatingCollection<T>(theInnerList: Collection<T> = ArrayList<T>()) : Collection<T> by theInnerList
 
 /* Delegates the MutableCollection implementation to innerSet */
-class CountingSet<T>(val innerSet: MutableCollection<T> = HashSet<T>()): MutableCollection<T> by innerSet {
+class CountingSet<T>(val innerSet: MutableCollection<T> = HashSet<T>()) : MutableCollection<T> by innerSet {
     var objectsAdded = 0
 
     /* It does not delegate, however, the implementation of these two methods */

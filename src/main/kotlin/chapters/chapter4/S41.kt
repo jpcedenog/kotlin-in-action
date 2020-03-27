@@ -1,8 +1,6 @@
 package chapters.chapter4
 
-import java.io.File
-
-fun main(args: Array<String>){
+fun main(args: Array<String>) {
     val button = Button()
     button.click()
     button.setFocus(true)
@@ -46,13 +44,13 @@ open class RichButton : Clickable { /* Class can be inherited */
 
 abstract class Animated {
     abstract fun animate()          /* Abstract, so it must be overriden */
-    open fun stopAnimating(){ }     /* Non-abtract, however, it can be optionally overriden */
-    fun animateTwice(){ }           /* Non-abstract, cannot be overriden */
+    open fun stopAnimating() {}     /* Non-abtract, however, it can be optionally overriden */
+    fun animateTwice() {}           /* Non-abstract, cannot be overriden */
 }
 
-class Animatedly: Animated(){
-    override fun animate(){ }
-    override fun stopAnimating(){ }
+class Animatedly : Animated() {
+    override fun animate() {}
+    override fun stopAnimating() {}
 }
 
 /* Kotlin offers a new visibility modifier, internal, which means "visible inside a module." 
@@ -64,7 +62,7 @@ internal open class TalkativeButton : Focusable {
     private fun yell() = println("Hey!")
     protected fun whisper() = println("Let's talk!")
 }
- 
+
 
 /* **** This class breaks all rules
 fun TalkativeButton.giveSpeech(){           //Error: "public" member exposes its "internal" receiver type TalkativeButton
@@ -75,8 +73,8 @@ fun TalkativeButton.giveSpeech(){           //Error: "public" member exposes its
 
 class Outer {
     /* Inner classes have to be declared explicitly. Otherwise, they are considered static nested by default */
-    inner class Inner { 
-        fun getOuterReference() : Outer = this@Outer
+    inner class Inner {
+        fun getOuterReference(): Outer = this@Outer
     }
 }
 
@@ -90,11 +88,11 @@ class Sum(val left: Expr, val right: Expr) : Expr
 */
 
 sealed class Expr {
-    class Num(val value: Int): Expr()
-    class Sum(val left: Expr, val right: Expr): Expr()
+    class Num(val value: Int) : Expr()
+    class Sum(val left: Expr, val right: Expr) : Expr()
 }
 
-fun eval(e: Expr): Int = when(e) { /* the "when" expression covers all possible cases, no "else" branch is needed */
+fun eval(e: Expr): Int = when (e) { /* the "when" expression covers all possible cases, no "else" branch is needed */
     is Expr.Num -> e.value
     is Expr.Sum -> eval(e.right) + eval(e.left)
 }

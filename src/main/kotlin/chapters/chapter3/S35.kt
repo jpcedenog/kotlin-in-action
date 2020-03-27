@@ -1,6 +1,6 @@
 package chapters.chapter3
 
-fun main(args: Array<String>){
+fun main(args: Array<String>) {
     /* In Kotlin, it is always clear whether split is getting a String or a Regex */
     println("12.345-6.A".split("\\.|-".toRegex()))
     println("12.345-6.A".split(".", "-"))
@@ -16,7 +16,7 @@ fun main(args: Array<String>){
     println(kotlinLogo.trimMargin("."))
 }
 
-fun parsePath(path: String){
+fun parsePath(path: String) {
     val directory = path.substringBeforeLast("/")
     val fullName = path.substringAfterLast("/")
     val fileName = fullName.substringBeforeLast(".")

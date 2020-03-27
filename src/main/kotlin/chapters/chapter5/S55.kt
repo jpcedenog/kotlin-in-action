@@ -6,7 +6,7 @@ fun main(args: Array<String>) {
     Alternatively, as usual for a this reference, you can omit it and access methods
     or properties of this value without any additional qualifiers */
     fun alphabet() = with(StringBuilder()) {
-        for(letter in 'A'..'Z'){
+        for (letter in 'A'..'Z') {
             append(letter)
         }
         append("\nNow I know the alphabet")
@@ -20,7 +20,7 @@ fun main(args: Array<String>) {
     object without any special support from the library where the object is defined */
     fun alphabet2() = StringBuilder().apply {
         for (letter in 'A'..'Z') {
-        append(letter)
+            append(letter)
         }
         append("\nNow I know the alphabet!")
     }.toString()
@@ -29,7 +29,7 @@ fun main(args: Array<String>) {
     with the help of StringBuilder */
     fun alphabet3() = buildString {
         for (letter in 'A'..'Z') {
-        append(letter)
+            append(letter)
         }
         append("\nNow I know the alphabet!")
     }

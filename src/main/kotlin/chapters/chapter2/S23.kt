@@ -9,7 +9,7 @@ fun main(args: Array<String>) {
     println(mix(BLUE, YELLOW))
     try {
         println(mix(Color.RED, Color.VIOLET)) //Throws an exception! Catch it!
-    }catch(e: Exception){
+    } catch (e: Exception) {
         println("Exception caught! ${e.message}")
     }
     println(mixOptimized(BLUE, YELLOW))
@@ -28,7 +28,7 @@ fun getMnemonic(color: Color) = when (color) {
 }
 
 /* Combine options in one when branch */
-fun getWarmth(color: Color) = when(color) {
+fun getWarmth(color: Color) = when (color) {
     RED, ORANGE, YELLOW -> "warm"
     GREEN -> "neutral"
     BLUE, INDIGO, VIOLET -> "cold"
@@ -52,11 +52,11 @@ fun mixOptimized(c1: Color, c2: Color) = when {
 
 interface Expr
 
-class Num(val value: Int): Expr
-class Sum(val left: Expr, val right: Expr): Expr
+class Num(val value: Int) : Expr
+class Sum(val left: Expr, val right: Expr) : Expr
 
 /* Smart casts. e is converted to either Num or Sum automatically */
-fun eval(e: Expr): Int = when(e) {
+fun eval(e: Expr): Int = when (e) {
     is Num -> {
         println("num: ${e.value}")
         e.value //last expression is returned

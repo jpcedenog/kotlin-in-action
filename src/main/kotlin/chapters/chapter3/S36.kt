@@ -1,13 +1,13 @@
 package chapters.chapter3
 
-fun main(args: Array<String>){
+fun main(args: Array<String>) {
     saveUser(User(1, "", ""))
     saveUser(User(1, "JP Cedeno", "1234 Small Town, USA"))
 }
 
 class User(val id: Int, val name: String, val address: String)
 
-fun User.validateBeforeSave(){
+fun User.validateBeforeSave() {
     //validate() is a local function which has access to any field in User
     fun validate(value: String, fieldName: String) {
         if (value.isEmpty()) {
@@ -21,11 +21,11 @@ fun User.validateBeforeSave(){
     // Save user to the database
 }
 
-fun saveUser(user: User){
+fun saveUser(user: User) {
     try {
         user.validateBeforeSave()
         println("User '${user.name}' saved correctly!")
-    }catch(e: Exception){
+    } catch (e: Exception) {
         println(e.message)
     }
 }

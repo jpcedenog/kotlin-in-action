@@ -1,8 +1,6 @@
 package chapters.chapter3
 
-import utils.strings.lastChar as last
-
-fun main(args: Array<String>){
+fun main(args: Array<String>) {
     printTypes()
 }
 

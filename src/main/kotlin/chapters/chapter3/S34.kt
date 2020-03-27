@@ -1,9 +1,6 @@
 package chapters.chapter3
 
-import utils.strings.joinToString
-import utils.strings.lastChar as last
-
-fun main(args: Array<String>){
+fun main(args: Array<String>) {
     val theList = arrayOf(3, 4, 5, 6)
     println(myListOf(1, 2, *theList))
     println(myListOf(1, 2, 3, 4, 5, 6))
@@ -14,22 +11,22 @@ fun main(args: Array<String>){
     the array (args) contents
     */
     //fun listOf<T>(vararg values: T): List<T> { ... }
-    println(listOf("args: ", *args)) 
+    println(listOf("args: ", *args))
 
     /* infix fun Any.to(other: Any) = Pair(this, other) 
        Check mapping of 1 to 5 */
     val map = mapOf(1 to "One", 5.to("Five"), 66 to "Sixty Six")
 
-    for((index, element) in map)
+    for ((index, element) in map)
         println("(1) $index: $element")
 
-    for((index, element) in listOf(3, 4, 5).withIndex()) 
+    for ((index, element) in listOf(3, 4, 5).withIndex())
         println("(2) $index: $element")
 
     val (number, name) = 1 to "One" //This is a destructuring declaration
     println("number: $number, name: $name")
 }
 
-fun <T> myListOf(vararg theValues: T): List<T>{
+fun <T> myListOf(vararg theValues: T): List<T> {
     return listOf(*theValues)
 }

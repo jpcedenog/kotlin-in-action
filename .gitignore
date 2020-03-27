@@ -9,3 +9,4 @@ kotlin-examples
 .vscode
 bin
 .DS_Store
+.idea/

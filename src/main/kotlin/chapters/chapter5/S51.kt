@@ -1,10 +1,10 @@
 package chapters.chapter5
 
-import java.util.Collections
-import java.util.Comparator
+import java.util.*
 
 fun main(args: Array<String>) {
     data class Person(val name: String, val age: Int)
+
     val people = listOf(Person("Alice", 29), Person("Bob", 31), Person("Charles", 31), Person("Dan", 21))
 
     /* 
@@ -21,16 +21,16 @@ fun main(args: Array<String>) {
     A lambda expression can be moved out of the parentheses if it's the last argument in a function call. If it's the only 
     argument the parentheses can be removed 
     */
-    println(people.maxBy { p: Person -> p.age }) 
-    println(people.maxBy { p -> p.age }) 
+    println(people.maxBy { p: Person -> p.age })
+    println(people.maxBy { p -> p.age })
 
     /* Automatic parameter 'it' is generated if the context 
     expects a lambda with one parameter and its type can be inferred */
-    println(people.maxBy { it.age }) 
+    println(people.maxBy { it.age })
 
-    val sum = { x: Int, y: Int -> 
+    val sum = { x: Int, y: Int ->
         println("Computing the sum of $x and $y...")
-        x + y 
+        x + y
     }
 
     println(sum(3, 6))
@@ -39,8 +39,8 @@ fun main(args: Array<String>) {
     If you use a lambda in a function, you can access the parameters of that function as well as the 
     local variables declared before the lambda
     */
-    fun printMessagesWithPrefix(messages: Collection<String>, prefix: String){
-        messages.forEach { 
+    fun printMessagesWithPrefix(messages: Collection<String>, prefix: String) {
+        messages.forEach {
             /* 'prefix' is available within the lambda block */
             println("$prefix $it")
         }
@@ -76,7 +76,7 @@ fun main(args: Array<String>) {
     val personsAgeFunction = Person::age
 
     /* An action of creating an instance of 'Person' is saved as a value */
-    val alice = createPerson("Alice", 29) 
+    val alice = createPerson("Alice", 29)
     println(alice)
     val alicesIsAdultFunction = alice::isAdult
     println(personsIsAdultFunction(alice))
@@ -87,9 +87,9 @@ fun main(args: Array<String>) {
     println(alicesAgeFunction())
 
     /* Lambda experiments (from Java 8) */
-    fun sortList(elements: List<String>){
+    fun sortList(elements: List<String>) {
         //Collections.sort(elements, (s1, s2) -> Integer.compare(s1.length(), s2.length())) /* Java style */
-        Collections.sort(elements){ s1, s2 -> Integer.compare(s1.length, s2.length) }
+        Collections.sort(elements) { s1, s2 -> Integer.compare(s1.length, s2.length) }
 
         /* The Comparator interface has a very useful static comparing method that accepts a "key extraction" 
         function and yields a comparator that compares the extracted keys */

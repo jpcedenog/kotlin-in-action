@@ -1,10 +1,9 @@
 package chapters.chapter3
 
-import utils.strings.joinToString
+import utils.strings.myRepeat
 import utils.strings.lastChar as last
-import utils.strings.myRepeat as myRepeat
 
-fun main(args: Array<String>){
+fun main(args: Array<String>) {
     println("Juan Pablo".last())
     println("Juan Pablo".last)
     println("JP ".myRepeat(5))
@@ -13,11 +12,12 @@ fun main(args: Array<String>){
     view.click()
     view.showOff() /* Extension functions cannot be overriden */
 }
+
 open class View {
     open fun click() = println("View clicked!")
 }
 
-class Button: View() {
+class Button : View() {
     override fun click() = println("Button clicked!")
 }
 
