@@ -3,12 +3,12 @@ package chapters.chapter2
 import utils.Color
 import utils.Color.*
 
-fun main(args: Array<String>) {
+fun main() {
     println(getMnemonic(BLUE))
     println(getWarmth(ORANGE))
     println(mix(BLUE, YELLOW))
     try {
-        println(mix(Color.RED, Color.VIOLET)) //Throws an exception! Catch it!
+        println(mix(RED, VIOLET)) //Throws an exception! Catch it!
     } catch (e: Exception) {
         println("Exception caught! ${e.message}")
     }
@@ -42,7 +42,7 @@ fun mix(c1: Color, c2: Color) = when (setOf(c1, c2)) {
     else -> throw Exception("Dirty color")
 }
 
-/* Optimized version that does not create unnecessary objects */
+/* Optimized version that does not create unnecessary objects. Note that 'when' has not argument */
 fun mixOptimized(c1: Color, c2: Color) = when {
     (c1 == RED && c2 == YELLOW) || (c1 == YELLOW && c2 == RED) -> ORANGE
     (c1 == YELLOW && c2 == BLUE) || (c1 == BLUE && c2 == YELLOW) -> GREEN

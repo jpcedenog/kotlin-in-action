@@ -21,7 +21,7 @@ class Button : View() {
     override fun click() = println("Button clicked!")
 }
 
-/* Extension functions cannot be overriden, they depend on 
+/* Extension functions cannot be overridden, they depend on
 the declared static type of the variable not on the runtime type */
 fun View.showOff() = println("I'm a View!")
 fun Button.showOff() = println("I'm a Button!")

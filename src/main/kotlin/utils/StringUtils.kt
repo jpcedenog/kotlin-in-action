@@ -18,8 +18,8 @@ fun <T> Collection<T>.joinToString(
     return result.toString()
 }
 
-/* This is an extension function */
-fun String.lastChar(): Char = this.get(this.length - 1)
+/* This is an extension function. 'this' represents the String instance (receiver object) */
+fun String.lastChar(): Char = this[this.length - 1]
 
 /* This one too */
 val myRepeat: String.(Int) -> String = { times -> this.repeat(times) }
