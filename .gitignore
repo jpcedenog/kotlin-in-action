@@ -10,3 +10,4 @@ kotlin-examples
 bin
 .DS_Store
 .idea/
+output/

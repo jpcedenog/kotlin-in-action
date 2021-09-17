@@ -1,4 +1,4 @@
 #!/bin/bash
 clear &&
-gradle build &&
-kotlin -classpath build/libs/basic.jar chapters.chapter$1.S$1$2Kt
+kotlinc chapters/chapter$1/S$1$2.kt -include-runtime -d output/S$1$2.jar &&
+java -jar output/S$1$2.jar
